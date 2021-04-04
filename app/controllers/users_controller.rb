@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     def index
-    #     render plain: "I'm in the index action!"
+    ##     render plain: "I'm in the index action!"
     if params[:query]
       users = User.where('username LIKE ?', "%#{params[:query]}%")
     else
