@@ -1,6 +1,12 @@
 class UsersController < ApplicationController
     def index
     #     render plain: "I'm in the index action!"
+    if params[:query]
+      users = User.where('username LIKE ?', "%#{params[:query]}%")
+    else
+      users = User.all
+    end
+    
     render json: User.all    
     end 
 
@@ -9,7 +15,7 @@ class UsersController < ApplicationController
         user = User.new(user_params)
         # replace the `user_attributes_here` with the actual attribute keys
        if  user.save
-        render json: user
+        render json: user, status: :created
        else
         render json: user.errors.full_messages, status: :unprocessable_entity
        end 
@@ -37,7 +43,7 @@ class UsersController < ApplicationController
       private
 
       def user_params
-        params.require(:user).permit(:name, :email)
+        params.require(:user).permit(:username)
       end
    
 end
