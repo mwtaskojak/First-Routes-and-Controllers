@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :comments, only: [:index, :create, :destroy] do
+  resources :comments, only: [:index, :create, :destroy]  do
     member do
       post :like, to: 'comments#like', as: 'like'
       post :unlike, to: 'comments#unlike', as: 'unlike'
@@ -44,6 +44,14 @@ Rails.application.routes.draw do
   end
 
   
+  resources :collections, only: [:create, :show, :destroy] do
+    resources :artworks, only: [:index] do
+      post :add, to: 'collections#add_artwork', as: 'add'
+      delete :remove, to: 'collections#remove_artwork', as: 'remove'
+    end
+  end
+end 
+  
 
 
-end
+
