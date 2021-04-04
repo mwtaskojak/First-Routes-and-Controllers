@@ -36,6 +36,8 @@ class User < ApplicationRecord
   def favorite_shared_artworks
     shared_artworks.where('artwork_shares.favorite = true')
   end
+
+  
 end
 
 
